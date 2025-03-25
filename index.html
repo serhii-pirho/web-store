@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mariborska pica</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <nav class="navbar section-content">
+            <a href="#" class="nav-logo">
+                <h2 class="logo-text">Mariborska pizza &#127829;</h2>
+            </a>
+            <ul class="nav-menu">
+                <li class="nav-item">
+                    <a href="catching.html">Igra 1</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#home">Domov</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#contacts">Kontakti</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#aboutus">O nas</a>
+                </li>
+            </ul>
+        </nav>
+    </header>
+  
+    <main>
+        <section class="order-section">
+            <div class="section-content">
+                <div class = "order-details">
+                    <h2 class="title">Najbolša pica v Mariboru</h2>
+                    <h3 class="subtitle">Lačen? Naroči pico v Mariboru!</h3>
+                    <p class="description">Izberite sestavine in naš kurir vam bo hitro dostavil okusno in dišečo pico po vašem okusu
+                    </p>
+                </div>
+                <div class="pizza-image-wrapper">
+                    <img src="img/pizza_1.png" alt="'pizza" class="pizza-image">
+                </div>
+                <div class="container">
+                    <h2>Izberi svojo najljubšo pico</h2>
+                    <label for="size">Izberi velikost:</label>
+                    <select id="size">
+                        <option value="majhno">Majhna</option>
+                        <option value="srednjo">Srednja</option>
+                        <option value="veliko">Velika</option>
+                    </select>
+                    <br><br>
+                    <label>Izberi sestavine:</label><br>
+                    <input type="checkbox" value="sirom"> Sir<br>
+                    <input type="checkbox" value="pepperoni"> Pepperoni<br>
+                    <input type="checkbox" value="gobe"> Gobe<br>
+                    <input type="checkbox" value="olive"> Olive<br>
+                    <br>
+                    <button onclick="placeOrder()">Order Now</button>
+                    <p id="orderSummary"></p>
+                </div>
+                <script src="script.js"></script>
+            </div>
+        </section>
+        
+    </main>
+</body>
+</html>
