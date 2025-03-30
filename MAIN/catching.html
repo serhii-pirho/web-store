@@ -3,88 +3,62 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Catch the Falling Objects</title>
+    <title>Catching Game</title>
     <style>
-        body {
-            text-align: center;
-            background-color: #f0f0f0;
-        }
-        canvas {
-            background: lightblue;
-            display: block;
-            margin: auto;
-        }
+        body { text-align: center; font-family: Arial, sans-serif; }
+        canvas { background: #f0f0f0; display: block; margin: auto; }
     </style>
 </head>
 <body>
-    <h1>Catch the Falling Objects</h1>
-    <canvas id="gameCanvas" width="500" height="600"></canvas>
+    <h2>Ujemite nadev!</h2>
+    <canvas id="gameCanvas" width="400" height="500"></canvas>
     <script>
         const canvas = document.getElementById("gameCanvas");
         const ctx = canvas.getContext("2d");
-        
-        const basket = { x: 225, y: 550, width: 50, height: 20, speed: 10 };
-        let objects = [];
+
+        let player = { x: 175, y: 450, width: 50, height: 10, speed: 20 };
+        let fallingObject = { x: Math.random() * 350, y: 0, width: 20, height: 20, speed: 3 };
         let score = 0;
-        let gameOver = false;
-        const objectTypes = ["🍄", "🧀", "🍅"];
-        
-        function drawBasket() {
-            ctx.fillStyle = "brown";
-            ctx.fillRect(basket.x, basket.y, basket.width, basket.height);
+
+        document.addEventListener("keydown", (event) => {
+            if (event.key === "ArrowLeft" && player.x > 0) player.x -= player.speed;
+            if (event.key === "ArrowRight" && player.x < canvas.width - player.width) player.x += player.speed;
+        });
+
+        function update() {
+            fallingObject.y += fallingObject.speed;
+            if (fallingObject.y > canvas.height) {
+                fallingObject.y = 0;
+                fallingObject.x = Math.random() * 350;
+            }
+
+            if (
+                fallingObject.y + fallingObject.height >= player.y &&
+                fallingObject.x >= player.x &&
+                fallingObject.x <= player.x + player.width
+            ) {
+                score++;
+                fallingObject.y = 0;
+                fallingObject.x = Math.random() * 350;
+            }
         }
-        
-        function drawObjects() {
-            objects.forEach(obj => {
-                ctx.font = "24px Arial";
-                ctx.fillText(obj.type, obj.x, obj.y);
-            });
-        }
-        
-        function updateObjects() {
-            objects.forEach((obj, index) => {
-                obj.y += obj.speed;
-                if (obj.y > canvas.height) objects.splice(index, 1);
-                if (obj.x < basket.x + basket.width && obj.x + 20 > basket.x &&
-                    obj.y < basket.y + basket.height && obj.y + 20 > basket.y) {
-                    score++;
-                    objects.splice(index, 1);
-                }
-            });
-        }
-        
-        function spawnObject() {
-            let obj = {
-                x: Math.random() * (canvas.width - 20),
-                y: 0,
-                speed: 3 + Math.random() * 2,
-                type: objectTypes[Math.floor(Math.random() * objectTypes.length)]
-            };
-            objects.push(obj);
-        }
-        
-        function drawScore() {
+
+        function draw() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.fillStyle = "blue";
+            ctx.fillRect(player.x, player.y, player.width, player.height);
+            ctx.fillStyle = "red";
+            ctx.fillRect(fallingObject.x, fallingObject.y, fallingObject.width, fallingObject.height);
             ctx.fillStyle = "black";
-            ctx.font = "20px Arial";
             ctx.fillText("Score: " + score, 10, 20);
         }
-        
+
         function gameLoop() {
-            if (gameOver) return;
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            drawBasket();
-            drawObjects();
-            drawScore();
-            updateObjects();
+            update();
+            draw();
             requestAnimationFrame(gameLoop);
         }
-        
-        document.addEventListener("keydown", event => {
-            if (event.key === "ArrowLeft" && basket.x > 0) basket.x -= basket.speed;
-            if (event.key === "ArrowRight" && basket.x < canvas.width - basket.width) basket.x += basket.speed;
-        });
-        
-        setInterval(spawnObject, 1000);
+
         gameLoop();
     </script>
 </body>

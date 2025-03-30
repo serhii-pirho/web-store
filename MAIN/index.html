@@ -1,68 +1,74 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="sl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mariborska pica</title>
+    <title>Picerija</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <header>
-        <nav class="navbar section-content">
-            <a href="#" class="nav-logo">
-                <h2 class="logo-text">Mariborska pizza &#127829;</h2>
-            </a>
-            <ul class="nav-menu">
-                <li class="nav-item">
-                    <a href="catching.html">Igra 1</a>
-                </li>
-                <li class="nav-item">
-                    <a href="#home">Domov</a>
-                </li>
-                <li class="nav-item">
-                    <a href="#contacts">Kontakti</a>
-                </li>
-                <li class="nav-item">
-                    <a href="#aboutus">O nas</a>
-                </li>
-            </ul>
-        </nav>
+        <h1>Mariborska pica</h1>
     </header>
-  
+    
+    <nav>
+        <ul>
+            <li><a href="#">Ponudba</a></li>
+            <li><a href="#">Igra</a></li>
+            <li><a href="#">Košarica</a></li>
+        </ul>
+    </nav>
+    
     <main>
-        <section class="order-section">
-            <div class="section-content">
-                <div class = "order-details">
-                    <h2 class="title">Najbolša pica v Mariboru</h2>
-                    <h3 class="subtitle">Lačen? Naroči pico v Mariboru!</h3>
-                    <p class="description">Izberite sestavine in naš kurir vam bo hitro dostavil okusno in dišečo pico po vašem okusu
-                    </p>
+        <section>
+            <h2>V ponudbi</h2>
+            <div class="menu">
+                <div class="pizza" onclick="showDetails('Margerita', 'Paradižnikova omaka, mozzarella, paradižnik, origano')">
+                    <img src="img/margerita.png" alt="Pizza Margerita">
+                    <h3>Margerita</h3>
+                    <p class="price">8.99€</p>
                 </div>
-                <div class="pizza-image-wrapper">
-                    <img src="img/pizza_1.png" alt="'pizza" class="pizza-image">
+                <div class="pizza" onclick="showDetails('Cheese', 'Paradižnikova omaka, dvojna porcija mozzarelle')">
+                    <img src="img/cheese.png" alt="Cheese Pizza">
+                    <h3>Cheese</h3>
+                    <p class="price">9.99€</p>
                 </div>
-                <div class="container">
-                    <h2>Izberi svojo najljubšo pico</h2>
-                    <label for="size">Izberi velikost:</label>
-                    <select id="size">
-                        <option value="majhno">Majhna</option>
-                        <option value="srednjo">Srednja</option>
-                        <option value="veliko">Velika</option>
-                    </select>
-                    <br><br>
-                    <label>Izberi sestavine:</label><br>
-                    <input type="checkbox" value="sirom"> Sir<br>
-                    <input type="checkbox" value="pepperoni"> Pepperoni<br>
-                    <input type="checkbox" value="gobe"> Gobe<br>
-                    <input type="checkbox" value="olive"> Olive<br>
-                    <br>
-                    <button onclick="placeOrder()">Order Now</button>
-                    <p id="orderSummary"></p>
+                <div class="pizza" onclick="showDetails('Pepperoni', 'Paradižnikova omaka, mozzarella, suha salama')">
+                    <img src="img/pepperoni.png" alt="Pepperoni Pizza">
+                    <h3>Pepperoni</h3>
+                    <p class="price">10.49€</p>
                 </div>
-                <script src="script.js"></script>
+                <div class="pizza" onclick="showDetails('Chicken BBQ', 'Paradižnikova omaka, piščanec, BBQ omaka, rdeča čebula, mozzarella, slanina')">
+                    <img src="img/chickenbbq.png" alt="Chicken BBQ Pizza">
+                    <h3>Chicken BBQ</h3>
+                    <p class="price">11.99€</p>
+                </div>
+                <div class="pizza" onclick="showDetails('Tuna', 'Paradižnikova omaka, mozzarella, tuna, rdeča čebula, črne olive, origano')">
+                    <img src="img/tuna.png" alt="Tuna Pizza">
+                    <h3>Tuna</h3>
+                    <p class="price">10.49€</p>
+                </div>
             </div>
         </section>
-        
+
+        <div id="popup" class="popup">
+            <div class="popup-content">
+                <span class="close" onclick="closePopup()">&times;</span>
+                <h2 id="pizza-name"></h2>
+                <p id="pizza-details"></p>
+            </div>
+        </div>
     </main>
+    
+    <footer>
+        <p>&copy; 2025 Picerija. Vse pravice pridržane.</p>
+        
+        <div class="payment-info">
+            <p>Načini plačila</p>
+            <img src="img/paymentmethod.png" alt="Načini plačila" class="payment-img">
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
 </body>
-</html> 
+</html>
