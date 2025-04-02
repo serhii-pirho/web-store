@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Catching Game</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f8f8f8;
+        color: #333;
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+      }
+      canvas {
+        background: #f0f0f0;
+        display: block;
+        margin: auto;
+      }
+
+      header {
+        background-color: #d32f2f;
+        color: white;
+        text-align: center;
+        padding: 20px;
+        font-size: 24px;
+        font-weight: bold;
+      }
+
+      nav {
+        background-color: #b71c1c;
+        padding: 10px;
+        text-align: center;
+      }
+
+      nav ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+      }
+
+      nav ul li {
+        display: inline;
+        margin: 0 15px;
+      }
+
+      nav ul li:hover a {
+        color: #c36f6f;
+      }
+
+      nav ul li.active-tab a {
+        background-color: #c36f6f;
+        transform: scale(1.1);
+        padding: 10px;
+        text-transform: uppercase;
+      }
+
+      nav ul li a {
+        color: white;
+        text-decoration: none;
+        font-size: 18px;
+        font-weight: bold;
+      }
+
+      main {
+        padding: 20px;
+        text-align: center;
+        flex: 1;
+      }
+
+      footer {
+        background-color: #d32f2f;
+        color: white;
+        text-align: center;
+        padding: 10px;
+        position: relative;
+        width: 100%;
+      }
+
+      .payment-info {
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+        font-size: 10px;
+        margin-top: 10px;
+        justify-content: center;
+      }
+
+      .payment-img {
+        width: 200px;
+        height: 20px;
+        object-fit: cover;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>Mariborska pica</h1>
+    </header>
+
+    <nav>
+      <ul>
+        <li><a href="/main/index.html">Ponudba</a></li>
+        <li class="active-tab"><a href="#">Igra</a></li>
+        <li><a href="/main/about-us/about-us.html">O nas</a></li>
+        <li><a href="/main/cart/cart.html">Košarica</a></li>
+      </ul>
+    </nav>
+
+    <main>
+      <h2>Ujemite nadev!</h2>
+      <canvas id="gameCanvas" width="400" height="500"></canvas>
+    </main>
+
+    <footer>
+      <p>&copy; 2025 Picerija. Vse pravice pridržane.</p>
+
+      <div class="payment-info">
+        <p>Načini plačila</p>
+        <img
+          src="img/paymentmethod.png"
+          alt="Načini plačila"
+          class="payment-img"
+        />
+      </div>
+    </footer>
+
+    <script>
+      const canvas = document.getElementById("gameCanvas");
+      const ctx = canvas.getContext("2d");
+
+      let player = { x: 175, y: 450, width: 50, height: 10, speed: 20 };
+      let fallingObject = {
+        x: Math.random() * 350,
+        y: 0,
+        width: 20,
+        height: 20,
+        speed: 3,
+      };
+      let score = 0;
+
+      document.addEventListener("keydown", (event) => {
+        if (event.key === "ArrowLeft" && player.x > 0) player.x -= player.speed;
+        if (
+          event.key === "ArrowRight" &&
+          player.x < canvas.width - player.width
+        )
+          player.x += player.speed;
+      });
+
+      function update() {
+        fallingObject.y += fallingObject.speed;
+        if (fallingObject.y > canvas.height) {
+          fallingObject.y = 0;
+          fallingObject.x = Math.random() * 350;
+        }
+
+        if (
+          fallingObject.y + fallingObject.height >= player.y &&
+          fallingObject.x >= player.x &&
+          fallingObject.x <= player.x + player.width
+        ) {
+          score++;
+          fallingObject.y = 0;
+          fallingObject.x = Math.random() * 350;
+        }
+      }
+
+      function draw() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        ctx.fillStyle = "blue";
+        ctx.fillRect(player.x, player.y, player.width, player.height);
+        ctx.fillStyle = "red";
+        ctx.fillRect(
+          fallingObject.x,
+          fallingObject.y,
+          fallingObject.width,
+          fallingObject.height
+        );
+        ctx.fillStyle = "black";
+        ctx.fillText("Score: " + score, 10, 20);
+      }
+
+      function gameLoop() {
+        update();
+        draw();
+        requestAnimationFrame(gameLoop);
+      }
+
+      gameLoop();
+    </script>
+  </body>
+</html>
