@@ -5,6 +5,9 @@ body {
     padding: 0;
     background-color: #f8f8f8;
     color: #333;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
 }
 
 header {
@@ -33,6 +36,17 @@ nav ul li {
     margin: 0 15px;
 }
 
+nav ul li:hover a {
+    color: #efe6e6;
+  }
+
+nav ul li.active-tab a {
+    background-color: #c36f6f;
+    transform: scale(1.1);
+    padding: 10px;
+    text-transform: uppercase;
+  }
+
 nav ul li a {
     color: white;
     text-decoration: none;
@@ -43,6 +57,8 @@ nav ul li a {
 main {
     padding: 20px;
     text-align: center;
+    background: bisque;
+    flex: 1;
 }
 
 .menu {
@@ -65,6 +81,7 @@ main {
 
 .pizza:hover {
     transform: scale(1.05);
+    cursor: pointer;
 }
 
 .pizza img {
@@ -103,17 +120,17 @@ footer {
 }
 
 .payment-info {
-    display: inline-flex; 
-    align-items: center; 
-    gap: 5px; 
-    font-size: 10px; 
-    margin-top: 10px; 
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 10px;
+    margin-top: 10px;
     justify-content: center;
 }
 
 .payment-img {
-    width: 200px;  
-    height: 20px;  
+    width: 200px;
+    height: 20px;
     object-fit: cover;
 }
 
