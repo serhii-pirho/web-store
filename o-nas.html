@@ -11,31 +11,45 @@
       padding: 0;
       background-color: #f9f9f9;
     }
+
     header {
       background-color: #d32f2f;
       color: white;
       padding: 1rem;
       text-align: center;
     }
+
     nav {
       background-color: #b71c1c;
       padding: 0.5rem;
       text-align: center;
     }
+
     nav a {
       color: white;
       margin: 0 1rem;
       text-decoration: none;
       font-weight: bold;
     }
-    .content {
-      max-width: 800px;
-      margin: 2rem auto;
-      padding: 1rem;
-      background-color: white;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-      border-radius: 8px;
+
+    .background-section {
+      background-image: url('1709026932-krusna-pec-za-pico-2.avif');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      padding: 3rem 1rem;
+      color: white;
+      text-shadow: 1px 1px 3px rgba(0,0,0,0.7);
     }
+
+    .background-section .content {
+      max-width: 800px;
+      margin: 0 auto;
+      background-color: rgba(0, 0, 0, 0.5);
+      padding: 2rem;
+      border-radius: 10px;
+    }
+
     footer {
       background-color: #d32f2f;
       color: white;
@@ -56,21 +70,18 @@
     <a href="#">Košarica</a>
   </nav>
 
-  <div class="content">
-    <h2>Naša zgodba</h2>
-    <p>Mariborska pica je nastala iz čiste ljubezni do dobre hrane in lokalnega duha. Smo ekipa prijateljev iz Maribora, ki je želela ustvariti nekaj več kot le navadno picerijo.</p>
-    
-    <h3>Naša vizija</h3>
-    <p>Verjamemo, da dobra pica združuje ljudi. Naš cilj je ponuditi vrhunske sestavine, edinstvene okuse in prijetno izkušnjo – tako na lokaciji kot preko spleta.</p>
+  <section class="background-section">
+    <div class="content">
+      <h2>Naša zgodba</h2>
+      <p>Mariborska pica je nastala iz čiste ljubezni do dobre hrane in lokalnega duha. Smo ekipa prijateljev iz Maribora, ki je želela ustvariti nekaj več kot le navadno picerijo.</p>
 
-    <h3>Od kod prihajamo?</h3>
-    <p>Vse se je začelo v majhni kuhinji v centru Maribora, kjer smo pekli pice za prijatelje. Danes z enako strastjo ustvarjamo vsak kos posebej in širimo našo zgodbo po vsej Sloveniji.</p>
-  </div>
+      <h3>Naša vizija</h3>
+      <p>Verjamemo, da dobra pica združuje ljudi. Naš cilj je ponuditi vrhunske sestavine, edinstvene okuse in prijetno izkušnjo – tako na lokaciji kot preko spleta.</p>
 
-  <h3>Naša kuhinja</h3>
-<p>V naši kuhinji uporabljamo pravo krušno peč za avtentičen okus in vrhunsko kvaliteto.</p>
-<img src="1709026932-krusna-pec-za-pico-2.avif" alt="Krušna peč" style="width:100%; max-width:600px; border-radius:10px; box-shadow: 0 2px 6px rgba(0,0,0,0.2); margin-top: 1rem;">
-
+      <h3>Od kod prihajamo?</h3>
+      <p>Vse se je začelo v majhni kuhinji v centru Maribora, kjer smo pekli pice za prijatelje. Danes z enako strastjo ustvarjamo vsak kos posebej in širimo našo zgodbo po vsej Sloveniji.</p>
+    </div>
+  </section>
 
   <footer>
     © 2025 Mariborska pica. Vse pravice pridržane.
