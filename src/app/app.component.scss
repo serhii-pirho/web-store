@@ -1,0 +1,16 @@
+main {
+  flex: 1;
+  display: flex;
+  width: 100%;
+  height: 100%;
+  background: gray;
+  min-height: fit-content;
+}
+
+app-pizza, app-about-us-pizza, app-pizza-cart, app-game {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  justify-content: center;
+  align-items: center;
+}

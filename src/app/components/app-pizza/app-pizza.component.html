@@ -1,0 +1,105 @@
+<main>
+  <section>
+    <h2>V ponudbi</h2>
+    <div class="menu">
+      <div class="pizza">
+        <img src="assets/margerita.png" alt="Pizza Margerita" />
+        <h3>Margerita</h3>
+        <p class="price">8.90€</p>
+        <button
+          (click)="
+            showDetails(
+              'Pepperoni',
+              'Paradižnikova omaka, mozzarella, suha salama'
+            )
+          "
+        >
+          Sestavine
+        </button>
+        <div class="add-btn">
+          <button (click)="handleAddToCart(1)">V košarico</button>
+        </div>
+      </div>
+      <div class="pizza">
+        <img src="assets/cheese.png" alt="Cheese Pizza" />
+        <h3>Cheese</h3>
+        <p class="price">9.90€</p>
+        <button
+          (click)="
+            showDetails(
+              'Cheese',
+              'Paradižnikova omaka, dvojna porcija mozzarelle'
+            )
+          "
+        >
+          Sestavine
+        </button>
+        <div class="add-btn">
+          <button (click)="handleAddToCart(2)">V košarico</button>
+        </div>
+      </div>
+      <div class="pizza">
+        <img src="assets/pepperoni.png" alt="Pepperoni Pizza" />
+        <h3>Pepperoni</h3>
+        <p class="price">10.90€</p>
+        <button
+          (click)="
+            showDetails(
+              'Pepperoni',
+              'Paradižnikova omaka, mozzarella, suha salama'
+            )
+          "
+        >
+          Sestavine
+        </button>
+        <div class="add-btn">
+          <button (click)="handleAddToCart(3)">V košarico</button>
+        </div>
+      </div>
+      <div class="pizza">
+        <img src="assets/chickenbbq.png" alt="Chicken BBQ Pizza" />
+        <h3>Chicken BBQ</h3>
+        <p class="price">11.90€</p>
+        <button
+          (click)="
+            showDetails(
+              'Chicken BBQ',
+              'Paradižnikova omaka, piščanec, BBQ omaka, rdeča čebula, mozzarella, slanina'
+            )
+          "
+        >
+          Sestavine
+        </button>
+        <div class="add-btn">
+          <button (click)="handleAddToCart(4)">V košarico</button>
+        </div>
+      </div>
+      <div class="pizza">
+        <img src="assets/tuna.png" alt="Tuna Pizza" />
+        <h3>Tuna</h3>
+        <p class="price">10.50€</p>
+        <button
+          (click)="
+            showDetails(
+              'Chicken BBQ',
+              'Paradižnikova omaka, piščanec, BBQ omaka, rdeča čebula, mozzarella, slanina'
+            )
+          "
+        >
+          Sestavine
+        </button>
+        <div class="add-btn">
+          <button (click)="handleAddToCart(5)">V košarico</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div id="popup" class="popup">
+    <div class="popup-content">
+      <span class="close" (click)="closePopup()">&times;</span>
+      <h2 id="pizza-name"></h2>
+      <p id="pizza-details"></p>
+    </div>
+  </div>
+</main>

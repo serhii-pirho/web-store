@@ -1,0 +1,18 @@
+<div class="cart">
+  <div class="cart-container">
+    <div *ngIf="itemsService.cartItems.length == 0">No items in cart.</div>
+    <div class="cart-item" *ngFor="let cartItem of itemsService.cartItems">
+      <div class="item">
+        <div class="item-details">
+          <span class="item-type">{{ cartItem.type }}</span>
+          <div class="item-title">{{ cartItem.title }}</div>
+        </div>
+        <div class="item-actions">
+          <button (click)="onRemoveItemClick(cartItem.id)">
+            REMOVE FROM CART
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

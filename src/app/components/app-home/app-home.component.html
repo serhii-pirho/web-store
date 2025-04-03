@@ -1,0 +1,26 @@
+<div class="home">
+  <h1>HOME</h1>
+  <span class="welcome"
+    >Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+    tempor incididunt ut labore et dolore magna aliqua.</span
+  >
+  <div class="items">
+    <span>Items available for rent</span>
+    <div class="items-container">
+      <div class="item" *ngFor="let item of items; index as i">
+        <div class="item-details">
+          <span class="item-number">{{ i + 1 }}.</span>
+          <span class="item-type">{{ item.type }}</span>
+          <div class="item-title">{{ item.title }}</div>
+        </div>
+        <div class="item-description">
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+          eiusmod tempor incididunt ut labore et dolore magna aliqua.
+        </div>
+        <div class="item-actions" *ngIf="item.details.available">
+          <button (click)="onAddItemClick(item.id)">ADD TO CART</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

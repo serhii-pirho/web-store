@@ -1,0 +1,24 @@
+main {
+  text-align: center;
+  flex: 1;
+  background: bisque;
+  height: 100%;
+}
+
+.background-section {
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  padding: 3rem 1rem;
+  color: white;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7);
+}
+
+.background-section .content {
+  max-width: 800px;
+  margin: 0 auto;
+  background-color: rgba(0, 0, 0, 0.5);
+  padding: 2rem;
+  border-radius: 10px;
+  font-size: 20px;
+}

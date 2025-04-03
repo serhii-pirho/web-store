@@ -1,0 +1,89 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f8f8f8;
+  color: #333;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+header {
+  background-color: #d32f2f;
+  color: white;
+  text-align: center;
+  padding: 20px;
+  font-size: 24px;
+  font-weight: bold;
+}
+
+nav {
+  background-color: #b71c1c;
+  padding: 10px;
+  text-align: center;
+  position: relative;
+}
+
+nav ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+nav ul li {
+  display: inline;
+  margin: 0 15px;
+  position: relative;
+  height: 30px;
+  cursor: pointer;
+}
+
+nav ul li:hover a {
+  color: lightcoral;
+  transform: scale(1.1);
+}
+
+nav ul li.active-tab a {
+  background-color: #c36f6f;
+  transform: scale(1.1);
+  padding: 10px;
+  text-transform: uppercase;
+}
+
+nav ul li a {
+  color: white;
+  text-decoration: none;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+button {
+  background: darkgrey;
+  color: white;
+  width: 12rem;
+  height: 5rem;
+  border-radius: 2rem;
+  font-size: 1.6rem;
+  border: 1px solid white;
+  cursor: pointer;
+
+  &:hover {
+    transform: scale(1.05);
+    color: black;
+    border: 1px solid black;
+  }
+}
+
+.cart-bubble {
+  background-color: #349913;
+    width: 30px;
+    height: 30px;
+    position: absolute;
+    top: -20px;
+    border-radius: 50%;
+    font-size: 16px;
+    color: white;
+    text-align: center;
+    line-height: 1.8;
+}

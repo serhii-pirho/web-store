@@ -1,0 +1,15 @@
+<nav class="nav">
+  <ul class="nav-links">
+    <img src="" />
+    <li class="nav-logo">LOGO</li>
+    <li><a href="#" (click)="onHomeClicked()">Home</a></li>
+    <li><a href="#" (click)="onGameClicked()">Game</a></li>
+    <li><a href="#" (click)="onPizzaClicked()">Grab a pizza</a></li>
+  </ul>
+  <div class="nav-actions">
+    <button (click)="onCartClicked()">Cart</button>
+    <span class="cart-bubble" *ngIf="itemsService.cartItems.length > 0">
+      {{ itemsService.cartItems.length }}</span
+    >
+  </div>
+</nav>

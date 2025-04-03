@@ -1,0 +1,17 @@
+<header>
+  <button (click)="onBackClicked()">Nazaj v igre</button>
+  <h1>Mariborska pica</h1>
+</header>
+
+<nav>
+  <ul>
+    <li (click)="onPizzaHomeClicked()"><a>Ponudba</a></li>
+    <li (click)="onPizzaAboutUsClicked()"><a>O nas</a></li>
+    <li (click)="onPizzaCartClicked()">
+      <a>Košarica</a>
+      <span class="cart-bubble" *ngIf="itemsService.pizzaItems.length > 0">
+        {{ itemsService.pizzaItems.length }}</span
+      >
+    </li>
+  </ul>
+</nav>
