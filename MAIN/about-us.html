@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="sl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>O nas - Mariborska pica</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f8f8f8;
+        color: #333;
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+      }
+      canvas {
+        background: #f0f0f0;
+        display: block;
+        margin: auto;
+      }
+
+      header {
+        background-color: #d32f2f;
+        color: white;
+        text-align: center;
+        padding: 20px;
+        font-size: 24px;
+        font-weight: bold;
+      }
+
+      nav {
+        background-color: #b71c1c;
+        padding: 10px;
+        text-align: center;
+      }
+
+      nav ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+      }
+
+      nav ul li {
+        display: inline;
+        margin: 0 15px;
+      }
+
+      nav ul li:hover a {
+        color: #efe6e6;
+      }
+
+      nav ul li.active-tab a {
+        background-color: #c36f6f;
+        transform: scale(1.1);
+        padding: 10px;
+        text-transform: uppercase;
+      }
+
+      nav ul li a {
+        color: white;
+        text-decoration: none;
+        font-size: 18px;
+        font-weight: bold;
+      }
+
+      main {
+        padding: 20px;
+        text-align: center;
+        flex: 1;
+        background: bisque;
+      }
+
+      .background-section {
+        background-image: url("1709026932-krusna-pec-za-pico-2.avif");
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        padding: 3rem 1rem;
+        color: white;
+        text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7);
+      }
+
+      .background-section .content {
+        max-width: 800px;
+        margin: 0 auto;
+        background-color: rgba(0, 0, 0, 0.5);
+        padding: 2rem;
+        border-radius: 10px;
+      }
+
+      footer {
+        background-color: #d32f2f;
+        color: white;
+        text-align: center;
+        padding: 1rem;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>Mariborska pica</h1>
+    </header>
+
+    <nav>
+      <ul>
+        <li><a href="homepage.html">Domov</a></li>
+        <li><a href="index.html">Ponudba</a></li>
+        <li><a href="catching.html">Igra</a></li>
+        <li><a href="about-us.html">O nas</a></li>
+        <li><a href="cart.html">Košarica</a></li>
+        <li><a href="izbira.html">Izbira</a></li>
+      </ul>
+    </nav>
+
+    <main>
+      <section class="background-section">
+        <div class="content">
+          <h2>Naša zgodba</h2>
+          <p>
+            Mariborska pica je nastala iz čiste ljubezni do dobre hrane in
+            lokalnega duha. Smo ekipa prijateljev iz Maribora, ki je želela
+            ustvariti nekaj več kot le navadno picerijo.
+          </p>
+
+          <h3>Naša vizija</h3>
+          <p>
+            Verjamemo, da dobra pica združuje ljudi. Naš cilj je ponuditi
+            vrhunske sestavine, edinstvene okuse in prijetno izkušnjo – tako na
+            lokaciji kot preko spleta.
+          </p>
+
+          <h3>Od kod prihajamo?</h3>
+          <p>
+            Vse se je začelo v majhni kuhinji v centru Maribora, kjer smo pekli
+            pice za prijatelje. Danes z enako strastjo ustvarjamo vsak kos
+            posebej in širimo našo zgodbo po vsej Sloveniji.
+          </p>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <p>&copy; 2025 Picerija. Vse pravice pridržane.</p>
+
+      <div class="payment-info">
+        <p>Načini plačila</p>
+        <img
+          src="img/paymentmethod.png"
+          alt="Načini plačila"
+          class="payment-img"
+        />
+      </div>
+    </footer>
+  </body>
+</html>

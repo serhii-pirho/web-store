@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Catching Game</title>
+    <style>
+
+      #Container {width:100%;}
+      #Header {width:100%; margin:0, auto;}
+      body {
+      text-align: center;
+      background-color: #222;
+      color: white;
+      font-family: sans-serif;
+      background-attachment: fixed;
+    }
+
+    #startButton {
+      margin-top: 200px;
+      padding: 20px 40px;
+      font-size: 24px;
+      background-color: #28a745;
+      color: white;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    #startButton:hover {
+      background-color: #218838;
+    }
+
+    #gameArea {
+      display: none;
+      margin-top: 50px;
+    }
+
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f8f8f8;
+        color: #333;
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+      }
+      canvas {
+        background: #f0f0f0;
+        display: block;
+        margin: auto;
+      }
+
+      header {
+        background-color: #d32f2f;
+        color: white;
+        text-align: center;
+        padding: 20px;
+        font-size: 24px;
+        font-weight: bold;
+      }
+
+      nav {
+        background-color: #b71c1c;
+        padding: 10px;
+        text-align: center;
+      }
+
+      nav ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+      }
+
+      nav ul li {
+        display: inline;
+        margin: 0 15px;
+      }
+
+      nav ul li:hover a {
+        color: #c36f6f;
+      }
+
+      nav ul li.active-tab a {
+        background-color: #c36f6f;
+        transform: scale(1.1);
+        padding: 10px;
+        text-transform: uppercase;
+      }
+
+      nav ul li a {
+        color: white;
+        text-decoration: none;
+        font-size: 18px;
+        font-weight: bold;
+      }
+
+      main {
+        padding: 20px;
+        text-align: center;
+        flex: 1;
+      }
+
+      footer {
+        background-color: #d32f2f;
+        color: white;
+        text-align: center;
+        padding: 10px;
+        position: relative;
+      }
+
+      .payment-info {
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+        font-size: 10px;
+        margin-top: 10px;
+        justify-content: center;
+      }
+
+      .payment-img {
+        width: 200px;
+        height: 20px;
+        object-fit: cover;
+      }
+    </style>
+  </head>
+  <audio id="gameMusic" src="game/music.mp3" loop></audio>
+
+  <body>
+    
+    <header>
+      <h1>Mariborska pica</h1>
+    </header>
+
+    <nav>
+      <ul>
+        <li><a href="homepage.html">Domov</a></li>
+        <li><a href="index.html">Ponudba</a></li>
+        <li><a href="catching.html">Igra</a></li>
+        <li><a href="about-us.html">O nas</a></li>
+        <li><a href="cart.html">Košarica</a></li>
+        <li><a href="izbira.html">Izbira</a></li>
+      </ul>
+    </nav>
+
+    <main>
+      <button id="startButton">Start Game</button>
+
+      <div id="gameArea">
+        <h2>Ujemite nadev!</h2>
+        <canvas id="gameCanvas" width="400" height="500"></canvas>
+      </div>
+    
+
+    </main>
+
+    <footer>
+      <p>&copy; 2025 Picerija. Vse pravice pridržane.</p>
+
+      <div class="payment-info">
+        <p>Načini plačila</p>
+        <img
+          src="img/paymentmethod.png"
+          alt="Načini plačila"
+          class="payment-img"
+        />
+      </div>
+    </footer>
+
+    <script>
+      const canvas = document.getElementById("gameCanvas");
+      const ctx = canvas.getContext("2d");
+
+      let player = { x: 160, y: 450, width: 100, height: 50, speed: 40 };
+      let fallingObject = {
+        x: Math.random() * 350,
+        y: 0,
+        width: 23,
+        height: 23,
+        speed: 2,
+      };
+      let fallingObject2 = {
+        x: Math.random() * 350, 
+        y: 0,                 
+        width: 20,             
+        height: 15,           
+        speed: 2,             
+      };
+
+      let score = 0;
+
+      document.addEventListener("keydown", (event) => {
+        if (event.key === "ArrowLeft" && player.x > 0) player.x -= player.speed;
+        if (
+          event.key === "ArrowRight" &&
+          player.x < canvas.width - player.width
+        )
+          player.x += player.speed;
+      });
+
+      function update() {
+ 
+  fallingObject.y += fallingObject.speed;
+  if (fallingObject.y > canvas.height) {
+    fallingObject.y = 0;
+    fallingObject.x = Math.random() * 350;
+  }
+
+
+  fallingObject2.y += fallingObject2.speed;
+  if (fallingObject2.y > canvas.height) {
+    fallingObject2.y = 0;
+    fallingObject2.x = Math.random() * 350;
+  }
+
+ 
+  if (
+    fallingObject.y + fallingObject.height >= player.y &&
+    fallingObject.x >= player.x &&
+    fallingObject.x <= player.x + player.width
+  ) {
+    score++;
+    fallingObject.y = 0;
+    fallingObject.x = Math.random() * 350;
+  }
+
+ 
+  if (
+    fallingObject2.y + fallingObject2.height >= player.y &&
+    fallingObject2.x >= player.x &&
+    fallingObject2.x <= player.x + player.width
+  ) {
+    score++;
+    fallingObject2.y = 0;
+    fallingObject2.x = Math.random() * 350;
+  }
+}
+
+      
+
+      function draw() {
+        ctx.fillStyle = "#222"; 
+        ctx.fillRect(0, 0, canvas.width, canvas.height); 
+
+        ctx.drawImage(paddleImg, player.x, player.y, player.width, player.height);
+        ctx.drawImage(toppingImg, fallingObject.x,  fallingObject.y,fallingObject.width, fallingObject.height);      
+        ctx.drawImage(toppingImg1, fallingObject2.x, fallingObject2.y, fallingObject2.width, fallingObject2.height);
+        ctx.fillStyle = "lightblue";
+        ctx.fillText("Score: " + score, 10, 20);
+      }
+      const paddleImg = new Image();
+paddleImg.src = 'game/paddle.png';
+
+const toppingImg = new Image();
+toppingImg.src = 'game/topping.png';
+
+const toppingImg1 = new Image();
+toppingImg1.src = 'game/topping1.png';
+
+function gameLoop() {
+  if (paddleImg.complete && toppingImg.complete) {
+    update();
+    draw();
+  }
+  requestAnimationFrame(gameLoop);
+}
+
+
+      gameLoop();
+
+    const startButton = document.getElementById('startButton');
+    const gameArea = document.getElementById('gameArea');
+
+    startButton.addEventListener('click', () => {
+      startButton.style.display = 'none';
+      gameArea.style.display = 'block';  
+
+      
+      console.log('Game is starting...');
+    });
+
+    const music = document.getElementById("gameMusic");
+music.volume = 0.2;
+music.play().catch((e) => {
+  console.log("User interaction required to play music:", e);
+});
+
+
+    </script>
+  </body>
+</html>
