@@ -5,6 +5,38 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Catching Game</title>
     <style>
+
+      #Container {width:100%;}
+      #Header {width:100%; margin:0, auto;}
+      body {
+      text-align: center;
+      background-color: #222;
+      color: white;
+      font-family: sans-serif;
+      background-attachment: fixed;
+    }
+
+    #startButton {
+      margin-top: 200px;
+      padding: 20px 40px;
+      font-size: 24px;
+      background-color: #28a745;
+      color: white;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    #startButton:hover {
+      background-color: #218838;
+    }
+
+    #gameArea {
+      display: none;
+      margin-top: 50px;
+    }
+
       body {
         font-family: Arial, sans-serif;
         margin: 0;
@@ -77,7 +109,6 @@
         text-align: center;
         padding: 10px;
         position: relative;
-        width: 100%;
       }
 
       .payment-info {
@@ -96,7 +127,10 @@
       }
     </style>
   </head>
+  <audio id="gameMusic" src="music.mp3" loop></audio>
+
   <body>
+    
     <header>
       <h1>Mariborska pica</h1>
     </header>
@@ -111,8 +145,14 @@
     </nav>
 
     <main>
-      <h2>Ujemite nadev!</h2>
-      <canvas id="gameCanvas" width="400" height="500"></canvas>
+      <button id="startButton">Start Game</button>
+
+      <div id="gameArea">
+        <h2>Ujemite nadev!</h2>
+        <canvas id="gameCanvas" width="400" height="500"></canvas>
+      </div>
+    
+
     </main>
 
     <footer>
@@ -132,14 +172,22 @@
       const canvas = document.getElementById("gameCanvas");
       const ctx = canvas.getContext("2d");
 
-      let player = { x: 175, y: 450, width: 50, height: 10, speed: 20 };
+      let player = { x: 160, y: 450, width: 100, height: 50, speed: 40 };
       let fallingObject = {
         x: Math.random() * 350,
         y: 0,
-        width: 20,
-        height: 20,
-        speed: 3,
+        width: 23,
+        height: 23,
+        speed: 2,
       };
+      let fallingObject2 = {
+        x: Math.random() * 350, 
+        y: 0,                 
+        width: 20,             
+        height: 15,           
+        speed: 2,             
+      };
+
       let score = 0;
 
       document.addEventListener("keydown", (event) => {
@@ -152,45 +200,93 @@
       });
 
       function update() {
-        fallingObject.y += fallingObject.speed;
-        if (fallingObject.y > canvas.height) {
-          fallingObject.y = 0;
-          fallingObject.x = Math.random() * 350;
-        }
+ 
+  fallingObject.y += fallingObject.speed;
+  if (fallingObject.y > canvas.height) {
+    fallingObject.y = 0;
+    fallingObject.x = Math.random() * 350;
+  }
 
-        if (
-          fallingObject.y + fallingObject.height >= player.y &&
-          fallingObject.x >= player.x &&
-          fallingObject.x <= player.x + player.width
-        ) {
-          score++;
-          fallingObject.y = 0;
-          fallingObject.x = Math.random() * 350;
-        }
-      }
+
+  fallingObject2.y += fallingObject2.speed;
+  if (fallingObject2.y > canvas.height) {
+    fallingObject2.y = 0;
+    fallingObject2.x = Math.random() * 350;
+  }
+
+ 
+  if (
+    fallingObject.y + fallingObject.height >= player.y &&
+    fallingObject.x >= player.x &&
+    fallingObject.x <= player.x + player.width
+  ) {
+    score++;
+    fallingObject.y = 0;
+    fallingObject.x = Math.random() * 350;
+  }
+
+ 
+  if (
+    fallingObject2.y + fallingObject2.height >= player.y &&
+    fallingObject2.x >= player.x &&
+    fallingObject2.x <= player.x + player.width
+  ) {
+    score++;
+    fallingObject2.y = 0;
+    fallingObject2.x = Math.random() * 350;
+  }
+}
+
+      
 
       function draw() {
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        ctx.fillStyle = "blue";
-        ctx.fillRect(player.x, player.y, player.width, player.height);
-        ctx.fillStyle = "red";
-        ctx.fillRect(
-          fallingObject.x,
-          fallingObject.y,
-          fallingObject.width,
-          fallingObject.height
-        );
-        ctx.fillStyle = "black";
+        ctx.fillStyle = "#222"; 
+        ctx.fillRect(0, 0, canvas.width, canvas.height); 
+
+        ctx.drawImage(paddleImg, player.x, player.y, player.width, player.height);
+        ctx.drawImage(toppingImg, fallingObject.x,  fallingObject.y,fallingObject.width, fallingObject.height);      
+        ctx.drawImage(toppingImg1, fallingObject2.x, fallingObject2.y, fallingObject2.width, fallingObject2.height);
+        ctx.fillStyle = "lightblue";
         ctx.fillText("Score: " + score, 10, 20);
       }
+      const paddleImg = new Image();
+paddleImg.src = 'paddle.png';
 
-      function gameLoop() {
-        update();
-        draw();
-        requestAnimationFrame(gameLoop);
-      }
+const toppingImg = new Image();
+toppingImg.src = 'topping.png';
+
+const toppingImg1 = new Image();
+toppingImg1.src = 'topping1.png';
+
+function gameLoop() {
+  if (paddleImg.complete && toppingImg.complete) {
+    update();
+    draw();
+  }
+  requestAnimationFrame(gameLoop);
+}
+
 
       gameLoop();
+
+    const startButton = document.getElementById('startButton');
+    const gameArea = document.getElementById('gameArea');
+
+    startButton.addEventListener('click', () => {
+      startButton.style.display = 'none';
+      gameArea.style.display = 'block';  
+
+      
+      console.log('Game is starting...');
+    });
+
+    const music = document.getElementById("gameMusic");
+music.volume = 0.2;
+music.play().catch((e) => {
+  console.log("User interaction required to play music:", e);
+});
+
+
     </script>
   </body>
 </html>
