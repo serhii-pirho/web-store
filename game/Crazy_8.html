@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Crazy 8 Game</title>
+  <style>
+      body {
+          font-family: Arial, sans-serif;
+          text-align: center;
+          padding: 20px;
+          background: #f0f0f0;
+      }
+      #gameArea {
+          background: white;
+          border-radius: 10px;
+          padding: 20px;
+          max-width: 600px;
+          margin: auto;
+          box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+      }
+      .hand {
+          display: flex;
+          justify-content: center;
+          flex-wrap: wrap;
+          margin: 10px 0;
+      }
+      .card {
+          border: 1px solid #333;
+          border-radius: 5px;
+          padding: 10px;
+          margin: 5px;
+          background: #fff;
+          cursor: pointer;
+      }
+      .card:hover {
+          background: #e0e0e0;
+      }
+      button {
+          padding: 10px 20px;
+          margin-top: 10px;
+          font-size: 16px;
+      }
+  </style>
+</head>
+<body>
+<div id="gameArea">
+  <h1>Crazy 8</h1>
+  <div>
+    <button onclick="startGame()">Start Game</button>
+    <p id="topCard"></p>
+  </div>
+
+  <h2>Your Hand</h2>
+  <div id="playerHand" class="hand"></div>
+
+  <h2>AI Cards Left: <span id="aiCount">0</span></h2>
+
+  <div id="gameStatus"></div>
+</div>
+
+<script>
+  const SUITS = ['Hearts', 'Diamonds', 'Clubs', 'Spades'];
+  const VALUES = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K', 'A'];
+
+  function createCard(suit, value) {
+    return { suit, value };
+  }
+
+  function createDeck() {
+    const deck = [];
+    for (const suit of SUITS) {
+      for (const value of VALUES) {
+        deck.push(createCard(suit, value));
+      }
+    }
+    return deck;
+  }
+
+  function shuffle(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [array[i], array[j]] = [array[j], array[i]];
+    }
+  }
+
+  const game = {
+    deck: [],
+    discardPile: [],
+    players: {
+      human: [],
+      ai: []
+    },
+    currentPlayer: 'human',
+    currentSuit: null,
+    gameOver: false
+  };
+
+  function startGame() {
+    game.deck = createDeck();
+    shuffle(game.deck);
+    game.players.human = [];
+    game.players.ai = [];
+    game.discardPile = [];
+    game.gameOver = false;
+    game.currentPlayer = 'human';
+
+    for (let i = 0; i < 5; i++) {
+      game.players.human.push(game.deck.pop());
+      game.players.ai.push(game.deck.pop());
+    }
+
+    let topCard;
+    do {
+      topCard = game.deck.pop();
+    } while (topCard.value === '8');
+    game.discardPile.push(topCard);
+    game.currentSuit = topCard.suit;
+
+    updateUI();
+    gameLoop();
+  }
+
+  function updateUI() {
+    const top = game.discardPile[game.discardPile.length - 1];
+    document.getElementById('topCard').textContent = `Top card: ${top.value} of ${top.suit}`;
+    document.getElementById('aiCount').textContent = game.players.ai.length;
+
+    const handDiv = document.getElementById('playerHand');
+    handDiv.innerHTML = '';
+    game.players.human.forEach((card, index) => {
+      const cardDiv = document.createElement('div');
+      cardDiv.className = 'card';
+      cardDiv.textContent = `${card.value} of ${card.suit}`;
+      cardDiv.onclick = () => playerPlayCard(index);
+      handDiv.appendChild(cardDiv);
+    });
+  }
+
+  function playerPlayCard(index) {
+    if (game.currentPlayer !== 'human') return;
+    const card = game.players.human[index];
+    const top = game.discardPile[game.discardPile.length - 1];
+    if (card.suit === game.currentSuit || card.value === top.value || card.value === '8') {
+      game.players.human.splice(index, 1);
+      game.discardPile.push(card);
+      game.currentSuit = card.value === '8' ? SUITS[Math.floor(Math.random() * SUITS.length)] : card.suit;
+      checkWinOrContinue();
+    } else {
+      alert("Invalid move!");
+    }
+  }
+
+  function checkWinOrContinue() {
+    if (game.players.human.length === 0) {
+      document.getElementById('gameStatus').textContent = "You win!";
+      game.gameOver = true;
+      return;
+    }
+    switchTurn();
+  }
+
+  function drawCard(player) {
+    if (game.deck.length === 0) return;
+    const card = game.deck.pop();
+    game.players[player].push(card);
+  }
+
+  function switchTurn() {
+    game.currentPlayer = game.currentPlayer === 'human' ? 'ai' : 'human';
+    updateUI();
+    gameLoop();
+  }
+
+  function gameLoop() {
+    if (game.gameOver) return;
+    if (game.currentPlayer === 'ai') {
+      setTimeout(() => {
+        const top = game.discardPile[game.discardPile.length - 1];
+        const playable = game.players.ai.find(card => card.suit === game.currentSuit || card.value === top.value || card.value === '8');
+        if (playable) {
+          game.players.ai.splice(game.players.ai.indexOf(playable), 1);
+          game.discardPile.push(playable);
+          game.currentSuit = playable.value === '8' ? SUITS[Math.floor(Math.random() * SUITS.length)] : playable.suit;
+          if (game.players.ai.length === 0) {
+            document.getElementById('gameStatus').textContent = "AI wins!";
+            game.gameOver = true;
+            updateUI();
+            return;
+          }
+        } else {
+          drawCard('ai');
+        }
+        switchTurn();
+      }, 1000);
+    }
+  }
+</script>
+</body>
+</html>
