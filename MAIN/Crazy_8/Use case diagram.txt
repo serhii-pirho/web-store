@@ -1,0 +1,86 @@
++----------------------------------------------------+
+|                    Crazy 8 Game                    |
++----------------------------------------------------+
+
+
+👤 Actors:
+Player (Human User)
+
+Computer AI (Opponent)
+
+🧩 Use Cases:
+🔵 Game Management
+Start Game
+
+Restart Game
+
+End Game
+
+🟢 Player Actions
+Play Card
+
+Draw Card
+
+View Hand
+
+View Rules
+
+Select Suit (when playing 8)
+
+Pass Turn
+
+🟠 AI Actions
+Play Card (AI)
+
+Draw Card (AI)
+
+Select Suit (AI)
+
+Pass Turn (AI)
+
+🔴 System/Internal Logic
+Deal Cards
+
+Check Card Validity
+
+Check Win Condition
+
+Switch Turn
+
+Update Game State
+
+Display Winner
+
+
+Actors:              Use Cases:
+------------------------------------------------------
+[ Player ]           -->  Start Game
+                     -->  View Hand
+                     -->  View Rules
+                     -->  Play Card
+                     -->  Select Suit (if playing 8)
+                     -->  Draw Card
+                     -->  Pass Turn
+                     -->  Restart Game
+
+[ Computer AI ]      -->  Play Card (AI)
+                     -->  Select Suit (AI)
+                     -->  Draw Card (AI)
+                     -->  Pass Turn (AI)
+
+[ System ]           -->  Deal Cards
+                     -->  Check Card Validity
+                     -->  Update Game State
+                     -->  Switch Turn
+                     -->  Check Win Condition
+                     -->  Display Winner
+                     -->  End Game
+
+📝 Commentary
+This version gives you a full picture of what needs to be implemented:
+
+It clearly distinguishes between user, AI, and system responsibilities.
+
+You can now use this structure to break down development into functions or modules.
+
+Each use case here corresponds to a piece of logic you’ll implement in HTML/JS (e.g., drawCard(), checkWinCondition() etc.)

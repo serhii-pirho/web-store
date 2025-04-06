@@ -1,0 +1,66 @@
+Sequence Diagram – Crazy 8 Game 
+This version represents the order of interactions between the different objects/classes during a player turn followed by an AI turn.
+
+🧱 Objects:
+Player – Human user
+
+GameEngine – The logic controller
+
+RuleChecker – Validates card rules
+
+Deck – Holds remaining cards
+
+DiscardPile – Holds played cards
+
+AI – Computer opponent
+
+
+
+
+Player              GameEngine           RuleChecker         Deck           DiscardPile            AI
+  |                      |                    |               |                  |                  |
+  |---> playCard(card) -->|                   |               |                  |                  |
+  |                      |---> isValid(card)? --->|           |                  |                  |
+  |                      |<---- true/false -------|           |                  |                  |
+  |                      |                        |           |                  |                  |
+  |                      |---> updateDiscard(card) ------------>|                |                  |
+  |                      |                                       |---> add(card) ->|                  |
+  |                      |                                       |                  |                  |
+  |                      |---> checkWinCondition() ------------->| (internal state check)             |
+  |                      |<------------ false -------------------|                                      |
+  |                      |---> switchTurn() --------------------->| (set currentPlayer = AI)           |
+  |                      |---> aiTurn() ------------------------->|                                    |
+  |                                              (AI logic)                                             |
+  |                                              (choose card or draw)                                  |
+  |                                             ---> playCard(card) -->|                                |
+  |                                                                   |---> isValid(card)? --->|        |
+  |                                                                   |<----- true/false -------|        |
+  |                                                                   |---> updateDiscard(card)-------->|
+  |                                                                   |                                |
+  |---> Wait for AI turn to end <-------------------------------------|                                |
+
+🧠 Commentary
+This flow shows a complete cycle:
+
+The Player plays a card → validation → update discard pile → check win.
+
+Then the AI performs a similar sequence, automatically.
+
+The GameEngine orchestrates the entire process by invoking functions on the Deck, RuleChecker, and DiscardPile.
+
+The AI is abstracted here but would have logic to choose a valid card or draw one.
+
+This is a blueprint for your JavaScript class and function design:
+
+playCard(card)
+
+isValid(card)
+
+updateDiscard(card)
+
+checkWinCondition()
+
+aiTurn()
+
+switchTurn()
+

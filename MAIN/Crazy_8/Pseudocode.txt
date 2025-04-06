@@ -1,0 +1,70 @@
+🧾 Pseudocode – Crazy 8 Game
+Pseudocode focuses on what the system should do in simple logic — it’s more like a step-by-step story of the program.
+
+function startGame():
+    initializeDeck()
+    shuffleDeck()
+    dealCardsToPlayers()
+    placeFirstCardOnDiscardPile()
+    set currentPlayer = "Player"
+    gameLoop()
+
+function gameLoop():
+    while not isGameOver():
+        if currentPlayer == "Player":
+            playerTurn()
+        else:
+            aiTurn()
+        checkWinCondition()
+        switchTurn()
+
+function playerTurn():
+    displayPlayerHand()
+    displayTopCard()
+    
+    if playerHasPlayableCard():
+        card = getPlayerCardSelection()
+        if isValidPlay(card):
+            playCard(card)
+            if card.value == "8":
+                suit = getPlayerChosenSuit()
+                setCurrentSuit(suit)
+        else:
+            showInvalidMoveMessage()
+            drawCardForPlayer()
+    else:
+        drawCardForPlayer()
+
+function aiTurn():
+    if aiHasPlayableCard():
+        card = aiChooseCard()
+        if isValidPlay(card):
+            playCard(card)
+            if card.value == "8":
+                suit = aiChooseSuit()
+                setCurrentSuit(suit)
+    else:
+        drawCardForAI()
+
+function playCard(card):
+    removeCardFromHand(currentPlayer, card)
+    addCardToDiscardPile(card)
+    applyCardEffect(card)
+
+function checkWinCondition():
+    if currentPlayerHasNoCards():
+        declareWinner(currentPlayer)
+        set gameOver = true
+
+function switchTurn():
+    if currentPlayer == "Player":
+        currentPlayer = "AI"
+    else:
+        currentPlayer = "Player"
+
+📝 Commentary
+This pseudocode uses clear function blocks, similar to how you’ll write them in JavaScript.
+
+It separates concerns: game setup, player turn, AI turn, win checking, and card effects.
+
+It’s easy to translate directly into your HTML/JS project.

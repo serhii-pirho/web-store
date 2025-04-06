@@ -1,0 +1,141 @@
+🤖 Finite State Machine – Crazy 8 Game
+✅ What is it?
+An FSM models the system as a set of states and transitions based on actions or conditions. It’s useful for ensuring the game progresses logically, and helps in both logic and UI.
+
+🎮 FSM Components
+🎯 States:
+START
+
+PLAYER_TURN
+
+AI_TURN
+
+CHECK_WIN
+
+GAME_OVER
+
+🔁 Transitions:
+Current State   	Event/Action    	Next State      	Description
+START	              Game initialized	        PLAYER_TURN	 Deck is ready, cards are dealt
+PLAYER_TURN	    Player finishes move	CHECK_WIN	After playing or drawing a card
+AI_TURN	             AI finishes move	        CHECK_WIN	After AI finishes its move
+CHECK_WIN	        Win detected	        GAME_OVER	   A player has 0 cards
+CHECK_WIN	           No win	    PLAYER_TURN / AI_TURN   Next player takes turn
+GAME_OVER	        Restart chosen	          START	                Reset game
+
+
+
+          [START]
+             |
+    ---------------------
+    |                   |
+[Initialize Game]      |
+    |                   |
+    V                   |
+[PLAYER_TURN] <--------/
+    |
+[Player plays/draws]
+    |
+    V
+[CHECK_WIN]
+    |         \
+[Win?]         No
+  |             \
+ Yes              --> [AI_TURN]
+  |                    |
+[GAME_OVER]       [AI plays/draws]
+  |                    |
+[Restart?]             V
+      \----------- [CHECK_WIN]
+
+
+
+
+Expanding the FSM:
+
+
+
+🌟 New States:
+State	                                      Purpose
+DEAL_CARDS	                  Handles initial card dealing
+SET_FIRST_PLAYER	        Randomizes or defines who starts
+DRAW_CARD	        Separated from the rest to support card drawing logic
+VALIDATE_CARD	                 Checks if the card is playable
+INVALID_MOVE_MESSAGE	       Alerts user if they try illegal play
+SELECT_SUIT	                    Triggered when playing an 8
+APPLY_CARD_EFFECTS	          Deals with Skip, Draw Two, etc.
+CHECK_HAND_EMPTY	             Determines if someone won
+SWITCH_TO_PLAYER / SWITCH_TO_AI	    Clearly separates turn logic
+
+
+
+
+
+                         [START]
+                            |
+                -------------------------
+                |                       |
+     [Initialize Game State]        [Load UI]
+                |
+                V
+          [DEAL_CARDS]
+                |
+                V
+        [SET_FIRST_PLAYER]
+                |
+                V
+            [PLAYER_TURN]
+                |
+      -------------------------
+     |           |             |
+[Play Card]  [Draw Card]  [Pass Turn]
+     |            |             |
+     V            V             |
+[VALIDATE_CARD]  [ADD_CARD_TO_HAND]
+     |                               
+     |--> Valid? ---- No --> [INVALID_MOVE_MESSAGE]
+     |                                |
+     |                                V
+     |------------------------> [PLAYER_TURN]
+     |
+    Yes
+     |
+     V
+[APPLY_CARD_EFFECTS]
+     |
+     |--> If card == 8 ---> [SELECT_SUIT]
+     |
+     V
+[UPDATE_DISCARD_PILE]
+     |
+     V
+[CHECK_PLAYER_HAND_EMPTY]
+     |
+     |--> Yes -----> [GAME_OVER]
+     |--> No ------> [SWITCH_TO_AI]
+                           |
+                           V
+                        [AI_TURN]
+                           |
+              ------------------------
+             |           |           |
+      [AI Play Card] [AI Draw Card] [AI Pass]
+             |
+       [VALIDATE_CARD]
+             |
+         [APPLY_CARD_EFFECTS]
+             |
+         [UPDATE_DISCARD_PILE]
+             |
+     [CHECK_AI_HAND_EMPTY]
+             |
+             |--> Yes -----> [GAME_OVER]
+             |--> No ------> [SWITCH_TO_PLAYER]
+
+
+🧠 Commentary
+FSM = core logic brain of your game loop.
+
+Helps keep track of whose turn it is, when to check for win, and when to restart.
+
+In JavaScript, you can implement FSM with a simple switch-case, a state variable, or even a small library like XState (if you want advanced behavior later).
